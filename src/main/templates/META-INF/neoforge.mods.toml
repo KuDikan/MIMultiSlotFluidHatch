@@ -75,6 +75,6 @@ side = "BOTH"
 [[dependencies."${mod_id}"]]
 modId = "modern_industrialization"
 mandatory = true
-versionRange = "[2.0.0,)"
+versionRange = "[2.4.0,)"
 ordering = "AFTER"
 side = "BOTH"
