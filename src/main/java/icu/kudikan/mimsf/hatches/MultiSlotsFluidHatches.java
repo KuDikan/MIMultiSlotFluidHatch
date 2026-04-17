@@ -41,19 +41,19 @@ public class MultiSlotsFluidHatches {
                 j = i / 2;
             }
             if (MimsfConfig.INSTANCE.enableBronzeMultiSlotFluidHatch.getAsBoolean()) {
-                registerMultiSlotsFluidHatches("Bronze", "bronze", MachineCasings.BRONZE, 4, i / j, j);
+                registerMultiSlotsFluidHatches("Bronze " + i + "-Slot", "bronze_" + i + "slots", MachineCasings.BRONZE, 4, i / j, j);
             }
             if (MimsfConfig.INSTANCE.enableSteelMultiSlotFluidHatch.getAsBoolean()) {
-                registerMultiSlotsFluidHatches("Steel", "steel", MachineCasings.STEEL, 16, i / j, j);
+                registerMultiSlotsFluidHatches("Steel" + i + "-Slot", "steel_" + i + "slots", MachineCasings.STEEL, 16, i / j, j);
             }
             if (MimsfConfig.INSTANCE.enableAdvancedMultiSlotFluidHatch.getAsBoolean()) {
-                registerMultiSlotsFluidHatches("Advanced", "advanced", CableTier.MV.casing, 64, i / j, j);
+                registerMultiSlotsFluidHatches("Advanced" + i + "-Slot", "advanced_" + i + "slots", CableTier.MV.casing, 64, i / j, j);
             }
             if (MimsfConfig.INSTANCE.enableTurboMultiSlotFluidHatch.getAsBoolean()) {
-                registerMultiSlotsFluidHatches("Turbo", "turbo", CableTier.HV.casing, 256, i / j, j);
+                registerMultiSlotsFluidHatches("Turbo" + i + "-Slot", "turbo_" + i + "slots", CableTier.HV.casing, 256, i / j, j);
             }
             if (MimsfConfig.INSTANCE.enableHighlyAdvancedMultiSlotFluidHatch.getAsBoolean()) {
-                registerMultiSlotsFluidHatches("Highly Advanced", "highly_advanced", CableTier.EV.casing, 1024, i / j, j);
+                registerMultiSlotsFluidHatches("Highly Advanced" + i + "-Slot", "highly_advanced_" + i + "slots", CableTier.EV.casing, 1024, i / j, j);
             }
         }
     }
@@ -68,8 +68,8 @@ public class MultiSlotsFluidHatches {
 
         for (int iter = 0; iter < 2; ++iter) {
             boolean input = iter == 0;
-            String machine = prefix + "_" + totalSlotsCount + "slots_fluid_" + (input ? "input" : "output") + "_hatch";
-            String englishName = englishPrefix + " " + totalSlotsCount + "-Slot Fluid" + (input ? " Input" : " Output") + " Hatch";
+            String machine = prefix + "_fluid_" + (input ? "input" : "output") + "_hatch";
+            String englishName = englishPrefix + " Fluid" + (input ? " Input" : " Output") + " Hatch";
             MachineRegistrationHelper.registerMachine(englishName, machine, bet -> {
                 List<ConfigurableFluidStack> fluidStacks = IntStream.range(0, totalSlotsCount).mapToObj(i -> input ? ConfigurableFluidStack.standardInputSlot(bucketCapacity * 1000L)
                         : ConfigurableFluidStack.standardOutputSlot(bucketCapacity * 1000L)).collect(Collectors.toList());
