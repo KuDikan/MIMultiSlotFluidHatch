@@ -2,7 +2,7 @@ package icu.kudikan.mimsf.mixin;
 
 import aztech.modern_industrialization.compat.kubejs.machine.RegisterHatchesEventJS;
 import aztech.modern_industrialization.machines.models.MachineCasings;
-import icu.kudikan.mimsf.MultiSlotsFluidHatches;
+import icu.kudikan.mimsf.hatches.MultiSlotsFluidHatches;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 

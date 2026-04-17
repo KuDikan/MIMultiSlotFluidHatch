@@ -42,6 +42,7 @@ public final class MimsfTranslationProvider implements DataProvider {
     private void addManualEntries() {
         addTranslation("mod.mimsf", "ModernIndustrialization Multi-Slot Fluid Hatch");
         addTranslation("fml.menu.mods.info.description.mimsf", "Add Multi-Slot Fluid Input/Output Hatch to ModernIndustrialization Mod");
+        addTranslation("text.mimsf.HatchCapacityFluid", "Has a capacity of %s (%d × %s).");
     }
 
     private void collectTranslationEntries() {

@@ -52,5 +52,6 @@
   "fml.menu.mods.info.description.mimsf": "为现代工业化模组增加多槽流体输入/输出仓。\n支持KubeJS。",
   "mimsf.configuration.maxSlotsTier": "多槽流体仓最大槽位等级",
   "mimsf.configuration.maxSlotsTier.tooltip": "多槽流体仓的最大槽位等级（第N级拥有 2^N 个槽位）。如果设置为 0，则不会添加多槽流体仓。",
-  "mod.mimsf": "现代工业化多槽流体仓"
+  "mod.mimsf": "现代工业化多槽流体仓",
+  "text.mimsf.HatchCapacityFluid": "容量为 %s（%d × %s）。"
 }

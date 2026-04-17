@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MimsfConfigBuilder {
-    public static final Map<String, String> configTranslations = new ConcurrentHashMap();
+    public static final Map<String, String> configTranslations = new ConcurrentHashMap<>();
     private final ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
     private static String configTranslationKey(String key) {

@@ -1,6 +1,7 @@
-package icu.kudikan.mimsf;
+package icu.kudikan.mimsf.hatches;
 
 import aztech.modern_industrialization.MI;
+import aztech.modern_industrialization.MITooltips;
 import aztech.modern_industrialization.api.energy.CableTier;
 import aztech.modern_industrialization.datagen.model.MachineModelProperties;
 import aztech.modern_industrialization.datagen.model.MachineModelsToGenerate;
@@ -10,20 +11,19 @@ import aztech.modern_industrialization.inventory.SlotPositions;
 import aztech.modern_industrialization.machines.MachineBlockEntity;
 import aztech.modern_industrialization.machines.blockentities.hatches.FluidHatch;
 import aztech.modern_industrialization.machines.gui.MachineGuiParameters;
-import aztech.modern_industrialization.machines.init.MachineDefinition;
 import aztech.modern_industrialization.machines.init.MachineRegistrationHelper;
-import aztech.modern_industrialization.machines.init.MultiblockHatches;
 import aztech.modern_industrialization.machines.models.MachineCasing;
 import aztech.modern_industrialization.machines.models.MachineCasings;
+import aztech.modern_industrialization.util.FluidHelper;
+import icu.kudikan.mimsf.MimsfConfig;
+import net.minecraft.network.chat.Component;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MultiSlotsFluidHatches {
-
     private static final int FLUID_HATCH_SLOT_X = 80;
     private static final int FLUID_HATCH_SLOT_Y = 40;
 
@@ -49,8 +49,7 @@ public class MultiSlotsFluidHatches {
 
     }
 
-    public static MultiblockHatches.HatchPair<FluidHatch> registerMultiSlotsFluidHatches(String englishPrefix, String prefix, MachineCasing casing, int bucketCapacity, int rowSlotsCount, int columSlotsCount) {
-        List<MachineDefinition<FluidHatch>> definitions = new ArrayList<>(2);
+    public static void registerMultiSlotsFluidHatches(String englishPrefix, String prefix, MachineCasing casing, int bucketCapacity, int rowSlotsCount, int columSlotsCount) {
         if (rowSlotsCount < 1 || columSlotsCount < 1) {
             rowSlotsCount = columSlotsCount = 1;
         }
@@ -68,9 +67,23 @@ public class MultiSlotsFluidHatches {
 
                 MIInventory inventory = new MIInventory(Collections.emptyList(), fluidStacks, SlotPositions.empty(),
                         new SlotPositions.Builder().addSlots(FLUID_HATCH_SLOT_X - 9 * finalRowSlotsCount + 9, FLUID_HATCH_SLOT_Y - 9 * finalColumSlotsCount + 7, finalRowSlotsCount, finalColumSlotsCount).build());
-                return new FluidHatch(bet, new MachineGuiParameters.Builder(machine, true).build(), input, !prefix.equals("bronze"), inventory);
+                return new FluidHatch(bet, new MachineGuiParameters.Builder(machine, true).build(), input, !prefix.equals("bronze"), inventory) {
+                    @Override
+                    public List<Component> getTooltips() {
+                        int slotCounts = inventory.getFluidStacks().toArray().length;
+                        long capacity = inventory.getFluidStacks().getFirst().getCapacity();
+                        return List.of(Component.translatable("text.mimsf.HatchCapacityFluid",
+                                        FluidHelper.getFluidAmountLarge(slotCounts * capacity)
+                                                .setStyle(MITooltips.NUMBER_TEXT),
+                                        Component.literal(String.valueOf(slotCounts)).setStyle(MITooltips.NUMBER_TEXT),
+                                        FluidHelper.getFluidAmountLarge(capacity)
+                                                .setStyle(MITooltips.NUMBER_TEXT)
+                                ).withStyle(MITooltips.DEFAULT_STYLE)
+                        );
+                    }
+                };
             }, MachineBlockEntity::registerFluidApi);
-            definitions.add(def);
+
 
             var model = new MachineModelProperties.Builder(casing);
             model.addOverlay("side", MI.id("block/machines/hatch_fluid/overlay_side"));
@@ -78,11 +91,9 @@ public class MultiSlotsFluidHatches {
             model.addOverlay("fluid_auto", MI.id("block/overlays/fluid_auto"));
             MachineModelsToGenerate.register(machine, model.build());
         }
-
-        return new MultiblockHatches.HatchPair<>(definitions.get(0), definitions.get(1));
     }
 
-    public static MultiblockHatches.HatchPair<FluidHatch> registerMultiSlotsFluidHatches(String englishPrefix, String prefix, MachineCasing casing, int bucketCapacity, int slotCounts) {
-        return registerMultiSlotsFluidHatches(englishPrefix, prefix, casing, bucketCapacity, slotCounts, 1);
+    public static void registerMultiSlotsFluidHatches(String englishPrefix, String prefix, MachineCasing casing, int bucketCapacity, int slotCounts) {
+        registerMultiSlotsFluidHatches(englishPrefix, prefix, casing, bucketCapacity, slotCounts, 1);
     }
 }

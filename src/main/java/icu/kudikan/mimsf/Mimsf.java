@@ -3,6 +3,7 @@ package icu.kudikan.mimsf;
 import aztech.modern_industrialization.config.MIStartupConfig;
 import aztech.modern_industrialization.misc.runtime_datagen.RuntimeDataGen;
 import icu.kudikan.mimsf.datagen.MimsfDatagenServer;
+import icu.kudikan.mimsf.hatches.MultiSlotsFluidHatches;
 import net.minecraft.server.packs.PackType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
