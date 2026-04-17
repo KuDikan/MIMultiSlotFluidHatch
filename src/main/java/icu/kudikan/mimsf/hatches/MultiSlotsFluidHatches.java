@@ -17,6 +17,7 @@ import aztech.modern_industrialization.machines.models.MachineCasings;
 import aztech.modern_industrialization.util.FluidHelper;
 import icu.kudikan.mimsf.MimsfConfig;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +30,7 @@ public class MultiSlotsFluidHatches {
 
     public static void init() {
         int j = 1, i = 1;
-        for (int t = 1; t <= MimsfConfig.INSTANCE.maxSlotsCount.getAsInt(); t += 1) {
+        for (int t = 1; t <= MimsfConfig.INSTANCE.maxMultiSlotFluidTier.getAsInt(); t += 1) {
             i *= 2;
 
             if (i > 8) {
@@ -39,14 +40,22 @@ public class MultiSlotsFluidHatches {
             } else if (i > 2) {
                 j = i / 2;
             }
-
-            registerMultiSlotsFluidHatches("Bronze", "bronze", MachineCasings.BRONZE, 4, i / j, j);
-            registerMultiSlotsFluidHatches("Steel", "steel", MachineCasings.STEEL, 16, i / j, j);
-            registerMultiSlotsFluidHatches("Advanced", "advanced", CableTier.MV.casing, 64, i / j, j);
-            registerMultiSlotsFluidHatches("Turbo", "turbo", CableTier.HV.casing, 256, i / j, j);
-            registerMultiSlotsFluidHatches("Highly Advanced", "highly_advanced", CableTier.EV.casing, 1024, i / j, j);
+            if (MimsfConfig.INSTANCE.enableBronzeMultiSlotFluidHatch.getAsBoolean()) {
+                registerMultiSlotsFluidHatches("Bronze", "bronze", MachineCasings.BRONZE, 4, i / j, j);
+            }
+            if (MimsfConfig.INSTANCE.enableSteelMultiSlotFluidHatch.getAsBoolean()) {
+                registerMultiSlotsFluidHatches("Steel", "steel", MachineCasings.STEEL, 16, i / j, j);
+            }
+            if (MimsfConfig.INSTANCE.enableAdvancedMultiSlotFluidHatch.getAsBoolean()) {
+                registerMultiSlotsFluidHatches("Advanced", "advanced", CableTier.MV.casing, 64, i / j, j);
+            }
+            if (MimsfConfig.INSTANCE.enableTurboMultiSlotFluidHatch.getAsBoolean()) {
+                registerMultiSlotsFluidHatches("Turbo", "turbo", CableTier.HV.casing, 256, i / j, j);
+            }
+            if (MimsfConfig.INSTANCE.enableHighlyAdvancedMultiSlotFluidHatch.getAsBoolean()) {
+                registerMultiSlotsFluidHatches("Highly Advanced", "highly_advanced", CableTier.EV.casing, 1024, i / j, j);
+            }
         }
-
     }
 
     public static void registerMultiSlotsFluidHatches(String englishPrefix, String prefix, MachineCasing casing, int bucketCapacity, int rowSlotsCount, int columSlotsCount) {
@@ -61,7 +70,7 @@ public class MultiSlotsFluidHatches {
             boolean input = iter == 0;
             String machine = prefix + "_" + totalSlotsCount + "slots_fluid_" + (input ? "input" : "output") + "_hatch";
             String englishName = englishPrefix + " " + totalSlotsCount + "-Slot Fluid" + (input ? " Input" : " Output") + " Hatch";
-            var def = MachineRegistrationHelper.registerMachine(englishName, machine, bet -> {
+            MachineRegistrationHelper.registerMachine(englishName, machine, bet -> {
                 List<ConfigurableFluidStack> fluidStacks = IntStream.range(0, totalSlotsCount).mapToObj(i -> input ? ConfigurableFluidStack.standardInputSlot(bucketCapacity * 1000L)
                         : ConfigurableFluidStack.standardOutputSlot(bucketCapacity * 1000L)).collect(Collectors.toList());
 
@@ -69,7 +78,7 @@ public class MultiSlotsFluidHatches {
                         new SlotPositions.Builder().addSlots(FLUID_HATCH_SLOT_X - 9 * finalRowSlotsCount + 9, FLUID_HATCH_SLOT_Y - 9 * finalColumSlotsCount + 7, finalRowSlotsCount, finalColumSlotsCount).build());
                 return new FluidHatch(bet, new MachineGuiParameters.Builder(machine, true).build(), input, !prefix.equals("bronze"), inventory) {
                     @Override
-                    public List<Component> getTooltips() {
+                    public @NotNull List<Component> getTooltips() {
                         int slotCounts = inventory.getFluidStacks().toArray().length;
                         long capacity = inventory.getFluidStacks().getFirst().getCapacity();
                         return List.of(Component.translatable("text.mimsf.HatchCapacityFluid",

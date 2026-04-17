@@ -50,8 +50,18 @@
   "block.modern_industrialization.turbo_8slots_fluid_input_hatch": "8槽涡轮增压流体输入仓",
   "block.modern_industrialization.turbo_8slots_fluid_output_hatch": "8槽涡轮增压流体输出仓",
   "fml.menu.mods.info.description.mimsf": "为现代工业化模组增加多槽流体输入/输出仓。\n支持KubeJS。",
-  "mimsf.configuration.maxSlotsTier": "多槽流体仓最大槽位等级",
-  "mimsf.configuration.maxSlotsTier.tooltip": "多槽流体仓的最大槽位等级（第N级拥有 2^N 个槽位）。如果设置为 0，则不会添加多槽流体仓。",
+  "mimsf.configuration.maxMultiSlotFluidTier": "多槽流体仓最高等级",
+  "mimsf.configuration.maxMultiSlotFluidTier.tooltip": "多槽流体仓添加的最高等级。\\n第N级拥有 2^N 个槽位。\\n如果设置为 0，则不会添加任何多槽流体仓。",
   "mod.mimsf": "现代工业化多槽流体仓",
-  "text.mimsf.HatchCapacityFluid": "容量为 %s（%d × %s）。"
+  "text.mimsf.HatchCapacityFluid": "容量为 %s（%d × %s）。",
+  "mimsf.configuration.enableAdvancedMultiSlotFluidHatch": "启用进阶多槽流体仓",
+  "mimsf.configuration.enableAdvancedMultiSlotFluidHatch.tooltip": "是否注册进阶多槽流体仓。",
+  "mimsf.configuration.enableBronzeMultiSlotFluidHatch": "启用青铜多槽流体仓",
+  "mimsf.configuration.enableBronzeMultiSlotFluidHatch.tooltip": "是否注册青铜多槽流体仓。",
+  "mimsf.configuration.enableHighlyAdvancedMultiSlotFluidHatch": "启用精英多槽流体仓",
+  "mimsf.configuration.enableHighlyAdvancedMultiSlotFluidHatch.tooltip": "是否注册精英多槽流体仓。",
+  "mimsf.configuration.enableSteelMultiSlotFluidHatch": "启用钢多槽流体仓",
+  "mimsf.configuration.enableSteelMultiSlotFluidHatch.tooltip": "是否注册钢多槽流体仓。",
+  "mimsf.configuration.enableTurboMultiSlotFluidHatch": "启用涡轮增压多槽流体仓",
+  "mimsf.configuration.enableTurboMultiSlotFluidHatch.tooltip": "是否注册涡轮增压多槽流体仓。"
 }
