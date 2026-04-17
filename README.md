@@ -1,37 +1,42 @@
-# Modern Industrialization
-_Modern Industrialization is a standalone tech mod, where the ultimate objective is total automation.
-Have machines generate and process all your resources while you are flying around doing anything you could possibly
-dream of! Of course, there is a long way to go before getting there. Can you do it?_
+# ModernIndustrialization Multi-Slot Fluid Hatch
 
-More information and downloads on CurseForge: https://www.curseforge.com/minecraft/mc-mods/modern-industrialization.
-Or Modrinth if you prefer: https://modrinth.com/mod/modern-industrialization.
+[简体中文](./README.zh-CN.md)
 
-## Modpack developer information
-Please refer to the [Developer-facing Documentation](docs/README.md) for more information.
+An addon for [**Modern Industrialization**](https://github.com/AztechMC/Modern-Industrialization) that adds configurable **multi-slot fluid input/output hatches**.
 
-## Filing bug reports
-Feel free to open an issue for bug reports!
-Don't forget to post the *complete* log on a website like Pastebin or Gist.
+## Downloads
 
-## Suggestions for the mod
-The best way to give suggestions is to come have a chat on our Discord server. Link on CurseForge!
+[![Modrinth Downloads](https://img.shields.io/modrinth/dt/rRRy353k?style=for-the-badge&logo=modrinth&label=modrinth)](https://modrinth.com/mod/mimsf)
+[![CurseForge Downloads](https://img.shields.io/curseforge/dt/1516477?style=for-the-badge&logo=curseforge&label=curseforge)](https://www.curseforge.com/minecraft/mc-mods/modernindustrialization-multi-slot-fluid-hatch/files/)
 
-## Contributing translations
-Have a look at [our Crowdin project](https://crowdin.com/project/modern-industrialization).
+## Features
 
-## Creating an addon for Modern Industrialization
-Everything in the `aztechmc.modern_industrialization.api` package is the stable public API.
-It will not change during a major Minecraft version, except for members marked as `@ApiStatus.Internal`.
+- Adds multi-slot **fluid input** and **fluid output** hatches to Modern Industrialization.
 
-The API is still a bit rough, and we are open to suggestions.
-If you need more things to be exposed please come discuss the features you need on our Discord.
-The link is on CurseForge.
+- Supports **KubeJS** hatch registration extensions for custom multi-slot fluid hatches.
+
+## Requirements
+
+- **Modern Industrialization**: 2.4.0+
+
+## KubeJS Support
+
+This mod extends the Modern Industrialization KubeJS fluid hatch registration event so you can create custom multi-slot fluid hatches.
+
+```js
+// startup_scripts/*.js
+MIMachineEvents.registerHatches(event => {
+  // Create single-slot fluid input/output hatch
+  event.fluid("englishPrefix", "prefix", "casing", bucketCapacity);
+
+  // Create multi-slot fluid input/output hatch, total slot count is slotCount
+  event.fluid("englishPrefix", "prefix", "casing", bucketCapacity, slotCount);
+
+  //  Create multi-slot fluid input/output hatch, with rowSlotCount slots per row and columSlotCount rows
+  event.fluid("englishPrefix", "prefix", "casing", bucketCapacity, rowSlotCount, columSlotCount);
+})
+```
 
 ## License
-The code is under the MIT license.
 
-The assets are all under CC0. Many textures are original, and for many we adjusted the work of others. Thanks go to:
-- GregoriusT for the original GregTech textures,
-- Falkory for redoing many textures,
-- Spool for some of the crafting component textures,
-- VirtualLilith for the rotary blade texture.
+This project is licensed under the **MIT License**.
