@@ -4,6 +4,7 @@
   "package": "icu.kudikan.mimsf.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "CrafterComponentMixin",
     "RegisterHatchesEventJSMixin"
   ],
   "client": [
